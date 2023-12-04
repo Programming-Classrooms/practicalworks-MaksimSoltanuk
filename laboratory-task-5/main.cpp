@@ -6,16 +6,16 @@
   Г) по формуле трапеций;
 
   где n–число точек деления отрезка [a, b]. Для вычисления первого приближения можно взять
-  n=4. Чтобы оценить точность, с которой вычислено значение интеграла, необходимо найти второе
-  приближение. Для этого можно увеличить n в два раза. Если s 1 и s 2 – два соседних приближения и |s 1
+  number of approximations=4. Чтобы оценить точность, с которой вычислено значение интеграла, необходимо найти второе
+  приближение. Для этого можно увеличить number of approximations в два раза. Если s 1 и s 2 – два соседних приближения и |s 1
   – s 2 |&lt;eps, то точность считается достигнутой и s 2 принимается за искомое значение интеграла. В
   противном случае надо положить s 1 = s 2 и удвоить число точек деления отрезка [a, b]. После этого
-  вычисляется новое значение s 2 . Процесс удвоения n и вычисления s 2 надо продолжать до тех пор,
+  вычисляется новое значение s 2 . Процесс удвоения number of approximations и вычисления s 2 надо продолжать до тех пор,
   пока модуль разности s 1 и s 2 не станет меньше eps. Остальные формулы посмотреть самим.
   Разработать функции, реализующие методы вычислений интеграла, входными параметрами
   которых должны быть функция для вычисления значения подынтегрального выражения, пределы
   интегрирования и точность вычислений. Головная программа должна вывести результат вычислений
-  для записанных в задании интегралов по заданным формулам и значение n, при котором достигнута
+  для записанных в задании интегралов по заданным формулам и значение number of approximations, при котором достигнута
   заданная точность. Для проверки вычислений в таблице приведены значения интегралов.
   Номер задания равен вашему индивидуальному номеру.
 */
@@ -24,62 +24,30 @@
 #include <cmath>
 
 
-double FirstFunction(double); // первая функция(математическая)
-double SecondFunction(double); // вторая функция(математическая)
-double ThirdFunction(double); // третья функция(математическая)
-double accuracyEps(); // желаемая точность вычисления интегралов
-void righRectanglesMethod(double (*f)(double), double, double, double); // вычисление по методу правых прямоугольников
-void rectangularTrapezoidMethod(double (*f)(double), double, double, double); // вычисление по методу прямоугольных трапеций
-void twoMetods(double (*f)(double), const double&, const double&, const double&); // вывод двух вариантов вычисления для каждой математической функции
-
-int main()
-{
-  try
-  {
-    long double eps = accuracyEps(); // точность
-    if (eps < 0.000000001)
-    {
-      throw std::exception("The accuracy is too high, your computer may be kaput!");
-    }
-
-    std::cout << "\nFirst function:\n";
-    twoMetods(FirstFunction, 0, 1, eps); // вывод вычислений для первой математической функции
-    std::cout << "\nSecond function:\n";
-    twoMetods(SecondFunction, 1, 2, eps); // вывод вычислений для второй математической функции
-    std::cout << "\nThird function:\n";
-    twoMetods(ThirdFunction, 1, 2, eps); // вывод вычислений для третей математической функции
-
-  }
-  catch (const std::exception& is)
-  {
-    std::cout << is.what();
-  }
-  return 0;
-}
-
-double FirstFunction(double x)
+double function1(double x)
 {
   return 1 / (1 + x * x * x);
 }
 
-double SecondFunction(double x)
+double function2(double x)
 {
   return x * log(x);
 }
 
-double ThirdFunction(double x)
+double function3(double x)
 {
   return log(x) / x;
 }
 
-double accuracyEps() // придётся вводить точность до того момента пока она не станет адекватной
+// придётся вводить точность до того момента пока она не станет адекватной
+double accuracyEps() 
 {
   long double accuracy;
   std::cout << "Input accuracy: ";
   std::cin >> accuracy;
   while (accuracy <= 0 || accuracy > 1)
   {
-    std::cout << "Enter the accuracy from 0 to 1.\n";
+    std::cout << "Enter the accuracy from 0 to 1.\number of approximations";
     std::cin >> accuracy;
   }
   return accuracy;
@@ -87,53 +55,108 @@ double accuracyEps() // придётся вводить точность до т
 
 void righRectanglesMethod(double (*f)(double), double a, double b, double eps)
 {
-  uint32_t n = 4; // начальное количество приближений
-  long double h = (b - a) / n, s1 = 0, s2 = 0; // длинна отрезка приближения
+  // начальное количество приближений n
+  uint32_t numberOfApproximations = 4; 
 
-  for (size_t step = 1; step <= n; ++step) // подсчёт интеграла с первоначальным количеством приближений
+  // длинна отрезка приближения
+  long double h = (b - a) / numberOfApproximations, s1 = 0, s2 = 0; 
+
+  // подсчёт интеграла с первоначальным количеством приближений
+  for (size_t step = 1; step <= numberOfApproximations; ++step)
   {
-    s2 += h * f(a + h * step); // вычисление и добавлние полщади каждого прямоугольника (длина отрезка приближения * на высоту заданую правой стороной)
+    // вычисление и добавлние полщади каждого прямоугольника (длина отрезка приближения * на высоту заданую правой стороной)
+    s2 += h * f(a + h * step);
   }
-while (abs(s1 - s2) > eps) // пока следующее вычисление интеграла не станет меньше тчоности, будет увеличиваться количество приближений в 2 раза
+
+  // пока следующее вычисление интеграла не станет меньше тчоности, будет увеличиваться количество приближений в 2 раза
+  while (abs(s1 - s2) > eps) 
   {
-    s1 = s2; // сохранение предыдущего вычисления
-    s2 = 0; // обнуление для нового подсчета
-    n *= 2; h /= 2; // увеличение количества приближений 
-    for (size_t step = 1; step <= n; ++step)
+    // сохранение предыдущего вычисления
+    s1 = s2; 
+
+    // обнуление для нового подсчета
+    s2 = 0; 
+
+    // увеличение количества приближений 
+    numberOfApproximations *= 2; h /= 2; 
+    for (size_t step = 1; step <= numberOfApproximations; ++step)
     {
-      s2 += h * f(a + h * step); // продолжение подсчёта
+      // продолжение подсчёта
+      s2 += h * f(a + h * step); 
     }
   }
 
-  std::cout << "Counting by the method of right rectangles: " << s2 << "\nNumber of sections: " << n << '\n';
+  std::cout << "Counting by the method of right rectangles: " << s2 << "\nNumber of sections: " << numberOfApproximations << '\number of approximations';
 }
 
 void rectangularTrapezoidMethod(double (*f)(double), double a, double b, double eps)
 {
-  uint32_t n = 4; // начальное количество приблежений 
-  long double h = (b - a) / n, s1 = 0, s2 = 0;// h* ((f(a) + f(b)) / 2); // площадь прямоугольной трапеции считается как полусумма оснований на высоту
+  // начальное количество приблежений n
+  uint32_t numberOfApproximations = 4; 
 
-  for (size_t step = 1; step < n; ++step) // подсчёт интеграла с первоначальным количеством приближений
+  // площадь прямоугольной трапеции считается как полусумма оснований на высоту
+  long double h = (b - a) / numberOfApproximations, s1 = 0, s2 = 0;
+
+  // подсчёт интеграла с первоначальным количеством приближений
+  for (size_t step = 1; step < numberOfApproximations; ++step) 
   {
-    s2 += h * (f(a + h * (step - 1)) + f(a + h * step)) / 2; // подсчёт интеграла с помощью метода трапеций
+    // подсчёт интеграла с помощью метода трапеций
+    s2 += h * (f(a + h * (step - 1)) + f(a + h * step)) / 2; 
   }
 
-  while (abs(s1 - s2) > eps) // пока следующее вычисление интеграла не станет меньше тчоности, будет увеличиваться количество приближений в 2 раза
+  // пока следующее вычисление интеграла не станет меньше тчоности, будет увеличиваться количество приближений в 2 раза
+  while (abs(s1 - s2) > eps)
   {
-    s1 = s2; // сохранение предыдущего вычисления
-    n *= 2; h /= 2; // увеличение количества приближений
-    s2 = h * ((f(a) + f(b)) / 2); // площадь прямоугольной трапеции считается как полусумма оснований на высоту
-    for (size_t step = 1; step < n; ++step)
+    // сохранение предыдущего вычисления
+    s1 = s2; 
+
+    // увеличение количества приближений
+    numberOfApproximations *= 2; h /= 2; 
+
+    // площадь прямоугольной трапеции считается как полусумма оснований на высоту
+    s2 = h * ((f(a) + f(b)) / 2); 
+    for (size_t step = 1; step < numberOfApproximations; ++step)
     {
-      s2 += h * (f(a + h * (step - 1)) + f(a + h * step)) / 2; // продолжение подсчёта
+      // продолжение подсчёта
+      s2 += h * (f(a + h * (step - 1)) + f(a + h * step)) / 2; 
     }
   }
 
-  std::cout << "Calculation using the rectangular trapezoid method: " << s2 << "\nNumber of sections: " << n << "\n";
+  std::cout << "Calculation using the rectangular trapezoid method: " << s2 << "\nNumber of sections: " << numberOfApproximations << "\number of approximations";
 }
 
-void twoMetods(double (*f)(double), const double& a, const double& b, const double& eps) // вывод подсчёта двух методов для одной функции(математической)
+// подсчёт двух методов для одной функции(математической)
+void twoMetods(double (*f)(double), const double& a, const double& b, const double& eps) 
 {
   righRectanglesMethod((*f), a, b, eps);
   rectangularTrapezoidMethod((*f), a, b, eps);
+}
+
+// вывод каждого подсчета для каждой функции
+void outputMetods(const double& eps) 
+{
+  double (*funck[3])(double) = { function1, function2, function3 };
+  for (size_t i = 0, j = 0; i < 3  || j < 1; ++i, ++j){
+    std::cout << "\nFunction " << i + 1 << ": \number of approximations";
+    twoMetods(funck[i], 0 + j, 1 + j, eps);
+  }
+}
+
+int main()
+{
+  try
+  {
+    // точность
+    long double eps = accuracyEps(); 
+    if (eps < 0.000000001)
+    {
+      throw std::exception("The accuracy is too high, your computer may be kaput!");
+    }
+    outputMetods(eps);
+  }
+  catch (const std::exception& is)
+  {
+    std::cerr << is.what();
+  }
+  return 0;
 }
