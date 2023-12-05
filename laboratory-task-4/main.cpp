@@ -18,23 +18,22 @@
 */
 
 
-
-
 #include <iostream>
 #include <iomanip>
 
 
 void moveMatrix(uint32_t**, uint32_t);
 void outputMatrix(uint32_t**, uint32_t);
-uint32_t countingRightTriangle(uint32_t** matrix, uint32_t size, uint32_t j);
-void deleteMatrix(uint32_t** matrix, uint32_t size);
+uint32_t countRightTriangle(uint32_t** matrix, uint32_t size, int32_t j, uint32_t&);
+void mtrxMemoryFree(uint32_t** matrix, uint32_t size);
 
 
 void main()
 {
     try
     {
-        uint32_t sum = 0, size = 0, j = 0;
+        uint32_t sum = 0, size = 0;
+        int32_t j = 0;
         std::cout << "Size of matrix? ";
         std::cin >> size;
 
@@ -44,13 +43,16 @@ void main()
         }
 
         uint32_t** matrix = new uint32_t* [size];
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             matrix[i] = new uint32_t[size];
+        }
 
         moveMatrix(matrix, size);
+        std::cout << "\nMatrix output:\n";
         outputMatrix(matrix, size);
-        countingRightTriangle(matrix, size, j);
-        deleteMatrix(matrix, size);
+        countRightTriangle(matrix, size, j, sum);
+        std::cout << "\nThe sum of the lower right triangle is " << sum << "\n";
+        mtrxMemoryFree(matrix, size);
 
         throw std::string();
     }
@@ -86,7 +88,6 @@ void moveMatrix(uint32_t** matrix, uint32_t size) {
         for (uint32_t i = 0; i < step + 1; ++i) {
             matrix[startRow][--startCol] = ++number;
         }
-
     }
     for (uint32_t i = startRow; i > 0; i--) {
         matrix[--startRow][startCol] = ++number;
@@ -94,7 +95,6 @@ void moveMatrix(uint32_t** matrix, uint32_t size) {
 }
 
 void outputMatrix(uint32_t** matrix, uint32_t size) {
-    std::cout << "\nMatrix output:\n";
     for (uint32_t i = 0; i < size; i++)
     {
         for (uint32_t j = 0; j < size - 1; j++)
@@ -105,24 +105,23 @@ void outputMatrix(uint32_t** matrix, uint32_t size) {
     }
 }
 
-uint32_t countingRightTriangle(uint32_t** matrix, uint32_t size, uint32_t j) {
-    uint32_t position = 0;
-    uint32_t sum = 0;
-    for (uint32_t i = size - 1; i >= 0; i--)
+uint32_t countRightTriangle(uint32_t** matrix, uint32_t size, int32_t j, uint32_t& sum) {
+    int32_t position = 0;
+    for (int32_t i = size - 1; i >= 0; i--)
     {
         j = position;
-        for (uint32_t j = position; j < size; j++)
+        for (int32_t j = position; j < size; j++)
             sum += matrix[i][j];
         ++position;
     }
-    std::cout << "\nThe sum of the lower right triangle is " << sum << "\n";
     return sum;
 }
 
-void deleteMatrix(uint32_t** matrix, uint32_t size) {
+void mtrxMemoryFree(uint32_t** matrix, uint32_t size) {
     for (uint32_t i = 0; i < size; i++) {
 
         delete[] matrix[i];
     }
     delete[] matrix;
 }
+
