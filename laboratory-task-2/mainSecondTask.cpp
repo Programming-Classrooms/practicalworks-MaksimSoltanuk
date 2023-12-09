@@ -14,8 +14,8 @@ void searchNumberInTheMiddle(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, u
 
 int main()
 {
-    uint32_t numberOfDigits{}, number{}, requiredFigure{}, result{};
-    uint32_t  copy1{}, copy2{}, copy3{};
+    uint32_t numberOfDigits = 0, number = 0, requiredFigure = 0, result = 0;
+    uint32_t  copy1 = 0, copy2 = 0, copy3 = 0;
 
     std::cout << "Enter number = ";
     std::cin >> number;
@@ -45,15 +45,15 @@ void searchNumberInTheMiddle(
     while (copy1)
     {
         copy1 /= 10;
-        numberOfDigits++;
+        ++numberOfDigits;
     }
     if (numberOfDigits % 2 == 0)
     {
-        std::cout << "y chisla nety centralnoi cifra" << '\n';
+        std::cout << "The number has no central digit\n";
     }
     else
     {
-        while ((numberOfDigits) / 2 >= copy3)
+        while (numberOfDigits / 2 >= copy3)
         {
             copy2 /= 10;
             requiredFigure = copy2;
