@@ -51,16 +51,13 @@ int main()
         std::cin >> size;
         try
         {
-            if (std::regex_match(size, stringCheck))
-            {
+            if (std::regex_match(size, stringCheck)) {
                 throw std::string("Size may be only number!\n");
             }
-            if (std::regex_match(size, doubleCheck))
-            {
+            if (std::regex_match(size, doubleCheck)) {
                 throw std::string("Size may be only integer number!\n");
             }
-            if (std::stoi(size) <= 0)
-            {
+            if (std::stoi(size) <= 0) {
                 throw std::string("Size may be only naturale number!\n");
             }
             std::cout << '\n';
@@ -118,7 +115,11 @@ int main()
 
 // Задачи предоставляемые пользователю на выбор
 template <typename T>
-void tasksForArray(T* array, const uint32_t realSize) 
+void tasksForArray
+(
+  T* array,
+  const uint32_t realSize
+) 
 {
     uint32_t choiceForTask;
     std::cout << "Choose an option:\n";
@@ -163,7 +164,11 @@ void tasksForArray(T* array, const uint32_t realSize)
 
 // Ввод массива в консоль
 template <typename T>
-void directInput(T* array, const uint32_t realSize)
+void directInput
+(
+  T* array,
+  const uint32_t realSize
+)
 {
     std::cout << "Enter " << realSize << " integers: \n";
     for (int i = 0; i < realSize; ++i)
@@ -174,14 +179,17 @@ void directInput(T* array, const uint32_t realSize)
 
 // Сортировка массива 
 template <typename T>
-void arraySort(T* array, const uint32_t realSize) 
+void arraySort
+(
+  T* array,
+  const uint32_t realSize
+) 
 {
     for (size_t i = 1; i < realSize; i++)
     {
         for (size_t j = 0; j < realSize - 1; j++)
         {
-            if (array[j] > array[i])
-            {
+            if (array[j] > array[i]) {
                 std::swap(array[i], array[j]);
             }
         }
@@ -190,19 +198,27 @@ void arraySort(T* array, const uint32_t realSize)
 
 // Вывод массива
 template <typename T>
-void arrayOutput(T* array, const uint32_t realSize)
+void arrayOutput
+(
+  T* array,
+  const uint32_t realSize
+)
 {
-    arraySort(array, realSize);
-    for (int i = 0; i < realSize; ++i)
-    {
-        std::cout << std::setw(5) << array[i] << ' ';
-    }
-    std::cout << '\n';
+  arraySort(array, realSize);
+  for (int i = 0; i < realSize; ++i)
+  {
+      std::cout << std::setw(5) << array[i] << ' ';
+  }
+  std::cout << '\n';
 }
 
 // Вывод массива с добавленным элементов
 template <typename T>
-void newArrayOutput(T* array, const uint32_t realSize)
+void newArrayOutput
+(
+  T* array,
+  const uint32_t realSize
+)
 {
     for (int i = 0; i < realSize + 1; ++i)
     {
@@ -213,72 +229,94 @@ void newArrayOutput(T* array, const uint32_t realSize)
 
 // Добавление в массив еще одного элемента
 template <typename T>
- void insertIntoOrderedArray(T* array, const uint32_t realSize, T newElement)
+void insertIntoOrderedArray
+(
+  T* array,
+  const uint32_t realSize,
+  T newElement
+)
 {
-    array[realSize] = newElement;
-    for (size_t i = realSize; i > 0; --i)
-    {
-        if (array[i - 1] > array[i])
-        {
-            std::swap(array[i - 1], array[i]);
-        }
-    }
-    newArrayOutput(array, realSize);
+  array[realSize] = newElement;
+  for (size_t i = realSize; i > 0; --i)
+  {
+      if (array[i - 1] > array[i]) {
+          std::swap(array[i - 1], array[i]);
+      }
+  }
+  newArrayOutput(array, realSize);
 }
 
- // Запись в файл "File.txt", кторый находится в одной папке с проектом
- template <typename T>
- void writeToFile(T* array, const uint32_t realSize)
- {
-     std::ofstream fout("file.txt");
-     if (fout.is_open()) 
-     {
-         for (size_t i = 0; i < realSize + 1; ++i) 
-         {
-             fout << array[i] << " ";
-         }
-         fout.close();
-         std::cout << "Data written to file.txt\n";
-     }
-     else 
-     {
-         throw std::string("Unable to open file!\n");
-     }
- }
+// Запись в файл "File.txt", кторый находится в одной папке с проектом
+template <typename T>
+void writeToFile
+(
+T* array,
+const uint32_t realSize
+)
+{
+   std::ofstream fout("file.txt");
+   if (fout.is_open()) {
+       for (size_t i = 0; i < realSize + 1; ++i) 
+       {
+           fout << array[i] << " ";
+       }
+       fout.close();
+       std::cout << "Data written to file.txt\n";
+   }
+   else {
+       throw std::string("Unable to open file!\n");
+   }
+}
 
- // Рандом для инта
- void arrayRand(int32_t* array, const uint32_t realSize)
- {
-     for (size_t i = 0; i < realSize; ++i)
-     {
-         array[i] = rand() % 100;
-     }
-     arraySort(array, realSize);
- }
+// Рандом для инта
+void arrayRand
+(
+  int32_t* array,
+  const uint32_t realSize
+)
+{
+   for (size_t i = 0; i < realSize; ++i)
+   {
+       array[i] = rand() % 100;
+   }
+   arraySort(array, realSize);
+}
  
- // Рандом для дабла
-void arrayRand(double* array, const uint32_t realSize)
- {
-     for (size_t i = 0; i < realSize; ++i)
-     {
-         array[i] = 10 + (static_cast<double>(rand()) * 90 / RAND_MAX);
-     }
-     arraySort(array, realSize);
- }
+// Рандом для дабла
+void arrayRand
+(
+  double* array,
+  const uint32_t realSize
+)
+{
+   for (size_t i = 0; i < realSize; ++i)
+   {
+       array[i] = 10 + (static_cast<double>(rand()) * 90 / RAND_MAX);
+   }
+   arraySort(array, realSize);
+}
 
 // Рандом для чара
-void arrayRand(char* array, const uint32_t realSize)
- {
-     for (size_t i = 0; i < realSize; ++i) 
-     {
-         array[i] = static_cast<char>(rand() % 100);
-     }
-     arraySort(array, realSize);
- }
+void arrayRand
+(
+  char* array,
+  const uint32_t realSize
+)
+{
+   for (size_t i = 0; i < realSize; ++i) 
+   {
+       array[i] = static_cast<char>(rand() % 100);
+   }
+   arraySort(array, realSize);
+}
 
 // Чтение из файла "file.txt" который находится в одной папке с проектом
 template <typename T>
-void readFromFileAndPrint(T* array, const uint32_t realSize)
+void readFromFileAndPrint
+(
+  T* array,
+  const uint32_t realSize
+)
 {
     std::ifstream fin("file.txt");
     uint32_t countSymbol = 0;
@@ -286,29 +324,30 @@ void readFromFileAndPrint(T* array, const uint32_t realSize)
     countSymbol = fin.tellg();
     fin.close();
     std::ifstream finArrayOutput("file.txt");
-    if (countSymbol >= realSize)
-    {
-        if (finArrayOutput.is_open())
-        {
+    if (countSymbol >= realSize) {
+        if (finArrayOutput.is_open()) {
             for (int i = 0; i < realSize && i < countSymbol; ++i)
             {
                 finArrayOutput >> array[i];
             }
             finArrayOutput.close();
         }
-        else
-        {
+        else {
             throw std::string("Unable to open file!\n");
         }
     }
-    else
-    {
+    else {
         throw std::string("There is too little data in the file!\n");
     }
 }
 
 // Очитска памяти 
-void clearArray(int32_t*& arrayInt, double*& arrayDouble, char*& arrayChar)
+void clearArray
+(
+  int32_t*& arrayInt,
+  double*& arrayDouble,
+  char*& arrayChar
+)
 {
     delete[] arrayInt;
     delete[] arrayChar;
