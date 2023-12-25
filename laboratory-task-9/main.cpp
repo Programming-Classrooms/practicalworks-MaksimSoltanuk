@@ -65,7 +65,8 @@ int main()
 }
 
 // читает строки из файла(елси он существует и непустой), 
-void readFromFile(
+void readFromFile
+(
   std::string& str,
   std::regex sepRegex,
   std::regex delims,
@@ -74,18 +75,15 @@ void readFromFile(
   size_t& maxSize,
   size_t& size,
   uint32_t* indexCounter
-)
+  )
 {
   // !!! input.txt необходимо создать в папке с проектом, либо елси хотите чтоб открывался другой, то надо поменять в 80 и  строке !!!
   std::ifstream fin("input.txt");
-  if (fin.is_open())
-  {
-    if (fin.peek() == EOF)
-    {
+  if (fin.is_open()) {
+    if (fin.peek() == EOF) {
       throw std::string("File is empty.\n");
     }
-    else
-    {
+    else {
       for (ind = 0; getline(fin, str, '\n'); ++ind)
       {
         maxSizeOfDelims(ind, index, indexCounter, str, sepRegex, delims, maxSize, size);
@@ -93,14 +91,14 @@ void readFromFile(
       fin.close();
     }
   }
-  else
-  {
+  else {
     throw std::string("Unable to open file!\n");
   }
 }
 
 // функция считает длину подстроки из разделителей
-uint32_t countOfDelims(
+uint32_t countOfDelims
+(
   std::string& str,
   std::regex sepRegex,
   std::regex delims
@@ -112,8 +110,7 @@ uint32_t countOfDelims(
   for (; start != end; ++start)
   {
     auto s = start->str();
-    if (std::regex_match(s, delims))
-    {
+    if (std::regex_match(s, delims)) {
       count = std::max(count, s.size());
     }
   }
@@ -121,7 +118,8 @@ uint32_t countOfDelims(
 }
 
 // функция для случая, когда строк удовлетворяющих условию несколько, то они будут записываться в массив для хранения индексов сторк(максимум первых 10 строк, тково условие задачи)
-uint32_t maxSizeOfDelims(
+uint32_t maxSizeOfDelims
+(
   size_t& ind,
   size_t& index,
   uint32_t* indexCounter,
@@ -134,21 +132,22 @@ uint32_t maxSizeOfDelims(
 {
   size_t count = countOfDelims(str, sepRegex, delims);
 
-  if (size < std::max(maxSize, count))
-  {
+  if (size < std::max(maxSize, count)) {
     index = 0;
     indexCounter[index] = ind;
     maxSize = std::max(maxSize, count);
   }
-  if (size == count && index != 9)
-  {
+  if (size == count && index != 9) {
     indexCounter[++index] = ind;
   }
   size = maxSize;
 
   return *indexCounter;
-}// вывод нужных строк
-void outputSttrings(
+}
+
+// вывод нужных строк
+void outputSttrings
+(
   size_t& ind,
   uint32_t* indexCounter,
   std::string& str,
@@ -158,8 +157,7 @@ void outputSttrings(
   std::ifstream finNew("input.txt");
   for (ind = 0; getline(finNew, str, '\n'); ++ind)
   {
-    if (ind == indexCounter[zero])
-    {
+    if (ind == indexCounter[zero]) {
       std::cout << str << '\n';
       ++zero;
     }
