@@ -318,10 +318,19 @@ void readFromFileAndPrint
   const uint32_t realSize
 )
 {
+    std::string str;
+    std::string delims = " .;:'";
+    size_t startPos = 0;
+    size_t endPos = 0;
     std::ifstream fin("file.txt");
     uint32_t countSymbol = 0;
-    fin.seekg(0, std::ios_base::end);
-    countSymbol = fin.tellg();
+    std::getline(fin, str);
+    while ((startPos = str.find_first_not_of(delims, startPos)) != -1)
+    {
+        endPos = str.find_first_of(delims, startPos);
+        ++countSymbol;
+        startPos = endPos;
+    }
     fin.close();
     std::ifstream finArrayOutput("file.txt");
     if (countSymbol >= realSize) {
