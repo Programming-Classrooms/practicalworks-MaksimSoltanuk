@@ -52,7 +52,7 @@ void List<T>::pushBack(T data)
 
 // количество элемнтов в списке
 template <typename T>
-uint32_t List<T>::getCountElements()
+int64_t List<T>::getCountElements()
 {
     return countElements;
 }
@@ -62,7 +62,7 @@ template <typename T>
 T &List<T>::operator[](const int index)
 {
     Node *temp = head;
-    uint32_t count = 0;
+    int64_t count = 0;
     while (temp != nullptr)
     {
         if (count == index)
@@ -125,9 +125,9 @@ void List<T>::pushFront(T data)
 
 // поиск элемента
 template <typename T>
-uint32_t List<T>::FindElement(T data)
+int64_t List<T>::FindElement(T data)
 {
-    uint32_t ind = 0;
+    int64_t ind = 0;
     Node *temp = head;
     while (temp != nullptr)
     {
