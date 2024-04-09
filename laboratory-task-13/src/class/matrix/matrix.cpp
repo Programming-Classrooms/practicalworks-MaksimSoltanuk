@@ -13,7 +13,7 @@ Matrix::Matrix() : row(1), col(1), mtr(new double* [row]) { // по умолча
 	}
 	std::cout << "default\n";
 }
-Matrix::Matrix(const uint8_t& r, const uint8_t& c) : row(r), col(c), mtr(new double* [r]) { // с параметрами
+Matrix::Matrix(const uint16_t& r, const uint16_t& c) : row(r), col(c), mtr(new double* [r]) { // с параметрами
 	if (c < 1 || r < 1) {
 		throw std::logic_error("it isn't imposible");
 	}

@@ -1,6 +1,7 @@
 #ifndef FRACTION_HPP
 #define FRACTION_HPP
 #include <iostream>
+#include <cstdint>
 #include <cmath>
 
 
