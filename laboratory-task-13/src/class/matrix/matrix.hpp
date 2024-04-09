@@ -6,12 +6,12 @@
 class Matrix
 {
 private:
-	uint16_t row; // строка
-	uint16_t col; // столбец
+	uint32_t row; // строка
+	uint32_t col; // столбец
 	double** mtr; // двумерный массив
 public:
 	Matrix(); // по умолчанию 
-	Matrix(const uint16_t&, const uint16_t&); // с параметрами
+	Matrix(const uint32_t&, const uint32_t&); // с параметрами
 	Matrix(const Matrix&); // копирования
 	Matrix(Matrix&&) noexcept; // перемещения
 	~Matrix(); // деструктор

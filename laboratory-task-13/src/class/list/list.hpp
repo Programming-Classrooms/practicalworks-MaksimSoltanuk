@@ -11,19 +11,19 @@ public:
     ~List();            // деструктор
 
     void pushBack(T);                    // добавление в конец
-    uint16_t getCountElements();         // получить количество элемнтов в списке
+    uint32_t getCountElements();         // получить количество элемнтов в списке
     T &operator[](const int);            // итерации
     void popFront();                     // удалить первый
     void popBack();                      // удалить последний
     void pushFront(T);                   // втсавка нового впрёд
-    uint16_t FindElement(T);             // поиск по значению
+    uint32_t FindElement(T);             // поиск по значению
     void deleteByValue(T);               // удаление по значению
     List<T> &operator=(const List<T> &); // оператор присваивания
     void outputList();                   // вывод списка
     void checkList(void func(T)) const;  // callback
 
 private:
-    uint16_t countElements; // количество элемнтов в списке
+    uint32_t countElements; // количество элемнтов в списке
     struct Node
     {
         T info;

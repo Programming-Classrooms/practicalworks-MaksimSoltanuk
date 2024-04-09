@@ -13,7 +13,7 @@ Matrix::Matrix() : row(1), col(1), mtr(new double* [row]) { // по умолча
 	}
 	std::cout << "default\n";
 }
-Matrix::Matrix(const uint16_t& r, const uint16_t& c) : row(r), col(c), mtr(new double* [r]) { // с параметрами
+Matrix::Matrix(const uint32_t& r, const uint32_t& c) : row(r), col(c), mtr(new double* [r]) { // с параметрами
 	if (c < 1 || r < 1) {
 		throw std::logic_error("it isn't imposible");
 	}
@@ -234,7 +234,7 @@ bool Matrix::operator==(const Matrix& m) {
 	return true;
 }
 bool Matrix::operator!=(const Matrix& m) {
-	uint16_t count = 0;
+	uint32_t count = 0;
 	for (size_t i = 0; i < row; ++i) {
 		for (size_t j = 0; j < col; ++j) {
 			if (m.mtr[i][j] == mtr[i][j]) {
