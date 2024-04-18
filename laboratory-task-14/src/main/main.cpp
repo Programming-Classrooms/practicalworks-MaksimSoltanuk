@@ -48,47 +48,61 @@
 #include "../class/studentEntered.hpp"
 #include "../class/studentFirstSession.hpp"
 #include "../class/studentSecondSession.hpp"
+#include "../class/tree.hpp"
+#include "../class/forestTree.hpp"
+#include "../class/fruitTree.hpp"
+#include "../class/caseTree.hpp"
+#include "fstream"
 
 uint16_t getSize();
 void menu(Person **, const uint16_t &);
 void menuForSecondLab(StudentEntered **, StudentFirstSession);
+bool checkFile(std::ifstream &);
 
 int main()
 {
-    // демонстрация первого задания
-    uint16_t size = getSize();
-    Person **arr = new Person *[size];
-    Student A("jenya", 5, 8);
-    std::cout << A;
-    Professor B("fedor", "mexmat");
-    std::cout << B;
+    /*   // демонстрация первого задания
+      uint16_t size = getSize();
+      Person **arr = new Person *[size];
+      Student A("jenya", 5, 8);
+      std::cout << A;
+      Professor B("fedor", "mexmat");
+      std::cout << B;
 
-    // демнострация второго задания
-    StudentEntered C("kostya", 1, 2, 8);
-    std::cout << C;
-    StudentFirstSession D("andrey", 1, 2, 8, 9, 8, 6, 10);
-    std::cout << D;
-    StudentSecondSession E(D, 9, 8, 7, 9, 10);
-    std::cout << C;
-    StudentSecondSession F(D, E);
-    std::cout << F;
-    std::cout << D.midle() << ' ' << F.midle() << '\n';
-    StudentEntered *arr2[5];
+      // демнострация второго задания
+      StudentEntered C("kostya", 1, 2, 8);
+      std::cout << C;
+      StudentFirstSession D("andrey", 1, 2, 8, 9, 8, 6, 10);
+      std::cout << D;
+      StudentSecondSession E(D, 9, 8, 7, 9, 10);
+      std::cout << C;
+      StudentSecondSession F(D, E);
+      std::cout << F;
+      std::cout << D.midle() << ' ' << F.midle() << '\n';
+      StudentEntered *arr2[5];
 
-    try
+      try
+      {
+          // меню для первого задания
+          menu(arr, size);
+
+          // меню для второго задания
+          menuForSecondLab(arr2, D);
+      }
+      catch (const std::logic_error &err)
+      {
+          std::cerr << err.what() << '\n';
+      }
+
+      delete[] arr; */
+   /*  CaseTree arrTree(3);
+    FruitTree *first = new FruitTree("elka", 8, Type::pine, 9, 2);
+
+    for (size_t i = 0; i < 3; ++i)
     {
-        // меню для первого задания
-        menu(arr, size);
+        arrTree[i] = dynamic_cast<FruitTree *>(first);
+    } */
 
-        // меню для второго задания
-        menuForSecondLab(arr2, D);
-    }
-    catch (const std::logic_error &err)
-    {
-        std::cerr << err.what() << '\n';
-    }
-
-    delete[] arr;
     return 0;
 }
 
@@ -293,4 +307,21 @@ void menuForSecondLab(StudentEntered **arr, StudentFirstSession B)
             break;
         }
     }
+}
+
+bool checkFile(std::ifstream &file)
+{
+    if (!file.good())
+    {
+        throw std::logic_error("not okey");
+    }
+    if (!file)
+    {
+        throw std::logic_error("don't exist");
+    }
+    if (file.peek() == EOF)
+    {
+        throw std::logic_error("empty");
+    }
+    return true;
 }
