@@ -14,8 +14,11 @@ public:
     std::string departureTime;
     size_t travelTime;
 
+    // Конструтор по умолчанию
     Train();
+    // Конструтор с параметрами
     Train(size_t, std::string, std::string, std::string, size_t);
+    // деструктор
     ~Train();
 };
 

@@ -1,5 +1,3 @@
-## src/class/BUILD
-
 cc_library (
     name = "class",
     srcs = ["Train.cpp"],
