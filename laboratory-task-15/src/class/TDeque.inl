@@ -166,7 +166,7 @@ const TInfo &TDeque<TInfo>::GetByIndex(unsigned index) const
     {
         return temp->Info;
     }
-    throw std::out_of_range("Index out of range");
+    throw std::out_of_range("Обращение к элементу за границами");
 }
 
 template <typename TInfo>
@@ -179,7 +179,7 @@ void TDeque<TInfo>::SetByIndex(TInfo info, unsigned index)
     }
     else
     {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Обращение к элементу за границами");
     }
 }
 
