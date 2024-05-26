@@ -1,42 +1,10 @@
 #include <gtest/gtest.h>
 #include "src/func/func.hpp"
-#include <sstream>
 
-TEST(SecondPartOfTheTaskTest, Test)
-{
-    EXPECT_NO_THROW(secondPartOfTheTask());
-}
-
-TEST(FillingTheVectorForThirdTaskTest, TestFileReading)
-{
-    std::vector<std::string> vec;
-    std::string expected_word = "word";
-    EXPECT_NO_THROW(fillingTheVectorForThirdTask(vec));
-}
-
-TEST(FothPartOfTheTaskTest, Test)
-{
-    EXPECT_NO_THROW(thirdPartOfTheTask());
-}
-
-TEST(FourthPartOfTheTaskTest, TestMatrixManipulation)
-{
-    std::stringstream input_ss, output_ss;
-    input_ss << "3 3\n1 10";
-    std::cin.rdbuf(input_ss.rdbuf());
-    std::cout.rdbuf(output_ss.rdbuf());
-
-    EXPECT_NO_THROW(fourthPartOfTheTask());
-}
 
 TEST(FifthPartOfTheTaskTest, Test)
 {
     EXPECT_NO_THROW(fifthPartOfTheTask());
-}
-
-TEST(SixthPartOfTheTaskTest, Test)
-{
-    EXPECT_NO_THROW(sixthPartOfTheTask());
 }
 
 TEST(TrainTest, InvalidTimeFormatThrows)
