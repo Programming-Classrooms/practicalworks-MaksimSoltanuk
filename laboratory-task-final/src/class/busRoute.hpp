@@ -5,14 +5,15 @@
 #include <string>
 #include <fstream>
 
-struct BusRoute
+class BusRoute
 {
+public:
     size_t numOfRoute;
     std::string driverName;
     size_t numOfBus;
     std::string markOfBus;
 
-    friend std::ostream& operator<<(std::ostream&, const BusRoute&);
+    friend std::ostream &operator<<(std::ostream &, const BusRoute &);
 };
 
 #endif

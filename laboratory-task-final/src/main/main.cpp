@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include <set>
 
 void checkFile(std::ifstream &fin)
 {
@@ -96,7 +97,7 @@ void allBusOfThisRoute(std::multimap<size_t, BusRoute> &mapOfBus)
     }
     if (!count)
     {
-        std::cout << "Нет автобусов по этому маршруту\n";
+        std::cout << "Нет автобусов по этому маршруту\n\n";
     }
 }
 
@@ -117,8 +118,55 @@ void allDriversOnThisMarkOfBus(std::multimap<size_t, BusRoute> &mapOfBus)
     }
     if (!count)
     {
-        std::cout << "Нет такой марки\n";
+        std::cout << "Нет такой марки\n\n";
     }
+}
+
+void deleteByNumOfRoute(std::multimap<size_t, BusRoute> mapOfBus)
+{
+    std::cout << "Какой маршрут удалить?\n";
+    size_t num;
+    size_t count = 0;
+    std::cin >> num;
+
+    for (auto &item : mapOfBus)
+    {
+        if (item.first == num)
+        {
+            mapOfBus.erase(num);
+            ++count;
+            break;
+        }
+    }
+    if (!count)
+    {
+        std::cout << "Нет такого маршрута\n\n";
+    }
+}
+
+void findWithMoreMarks(std::multimap<size_t, BusRoute> mapOfBus, std::vector<BusRoute> vec)
+{
+    std::vector<size_t> countForThisRoute;
+    size_t count = 0;
+    std::set<std::string> set;
+    std::map<size_t, std::set<std::string>> routeAndCount;
+
+    for (const auto &item : mapOfBus)
+    {
+        routeAndCount[item.first].insert(item.second.markOfBus);
+    }
+
+    for (const auto &item : routeAndCount)
+    {
+        countForThisRoute.push_back(item.second.size());
+    }
+
+    for (const auto &item : countForThisRoute)
+    {
+        std::cout << item << " ";
+    }
+
+    std::cout << "Номер маршрута, который содержит наиболее большое количество марок:";
 }
 
 int main()
@@ -136,6 +184,10 @@ int main()
         moveFormVectorToMap(vec, mapOfBus);
         allBusOfThisRoute(mapOfBus);
         allDriversOnThisMarkOfBus(mapOfBus);
+        deleteByNumOfRoute(mapOfBus);
+
+        // третья задача
+        findWithMoreMarks(mapOfBus, vec);
     }
     catch (const std::invalid_argument &err)
     {
