@@ -1,0 +1,3 @@
+200 Novicki 21 Maz
+100 Lihach 20 Man
+123 Leonovich 23 Kamaz
