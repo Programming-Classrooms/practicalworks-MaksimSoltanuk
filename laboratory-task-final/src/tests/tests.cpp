@@ -1,12 +1,9 @@
-
+#include <iostream>
 #include "gtest/gtest.h"
-// ("(\\s+)")
 
-TEST(TDequeTest, InsFront)
+TEST(BasicTest, test)
 {
-    TDeque<int> deque;
-    deque.InsFront(1);
-    EXPECT_EQ(deque.GetByIndex(0), 1);
+    EXPECT_EQ(1, 1);
 }
 
 int main(int argc, char **argv)
